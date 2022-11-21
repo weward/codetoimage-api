@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\General\CodeStyleController;
+use App\Http\Controllers\User\CodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::namespace('General')->group(function() {
     Route::get('get-code-styles', [CodeStyleController::class, 'getcodeStyles'])->name('get-code-styles');
-    
+});
+
+Route::namespace('User')->group(function() {
+    Route::post('save-code', [CodeController::class, 'store'])->name('save-code');
 });
