@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Code;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,9 +16,9 @@ class CodesTest extends TestCase
      * 
      * @test
      */
-    public function storeCodeWasSuccessful()
+    public function codeSavingWasSuccessful()
     {
-        $response = $this->post('api/save-code', [
+        $response = $this->post(route('code.store'), [
             'title' => 'This is the title',
             'code' => 'This is a test code',
             'style_id' => 261
@@ -31,9 +32,9 @@ class CodesTest extends TestCase
      * 
      * @test
      */
-    public function storeCodeValidationFailed()
+    public function codeSavingValidationFailed()
     {
-        $response = $this->post('api/save-code', [
+        $response = $this->post(route('code.store'), [
             'title' => '',
             'code' => '',
             'style_id' => null
@@ -41,5 +42,36 @@ class CodesTest extends TestCase
 
         $response->assertStatus(422);
     }
+
+    /**
+     * Get All codes working
+     * @test
+     */
+    public function getAllCodesSuccessful()
+    {
+        $codes = Code::factory()->count(3)->create();
+
+        $response = $this->get(route('code.index'));
+
+        $response->assertJsonCount(3);
+    }
+
+    /**
+     * Get Specific Entity record
+     * 
+     * @test
+     */
+    public function getSpecificCodeRecordSuccessful()
+    {
+        Code::factory()->count(1)->create();
+
+        $response = $this->get(route('code.view', ['code' => 1]));
+
+        $response->assertJsonFragment([
+            'id' => 1,
+        ]);
+    }
+
+
 
 }

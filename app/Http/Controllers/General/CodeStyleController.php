@@ -17,11 +17,11 @@ class CodeStyleController extends Controller
         $this->service = $service;
     }
 
-    public function getCodeStyles()
+    public function index()
     {
         $styles = $this->service->getCodeStyles();
         
-        return response()->json($styles, 200);
+        return response()->jsonApi($styles);
     }
 
     

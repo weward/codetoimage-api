@@ -19,5 +19,4 @@ class CodeStyleService
         return $styles;
     }
 
-    
 }

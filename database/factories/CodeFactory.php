@@ -16,8 +16,18 @@ class CodeFactory extends Factory
      */
     public function definition()
     {
+        $max = 'now';
+        $date = fake()->date('Y-m-d', $max);
+        $time = fake()->time('H:i:s', $max);
+        $dateTime = "{$date} {$time}";
+
         return [
-            //
+            'user_id' => 1,
+            'code' => fake()->randomHtml(2, 3),
+            'title' => fake()->domainWord(),
+            'style_id' => rand(252, 326),
+            'created_at' => $dateTime,
+            'updated_at' => $dateTime,
         ];
     }
 }

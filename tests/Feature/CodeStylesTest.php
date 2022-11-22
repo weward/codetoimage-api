@@ -20,7 +20,7 @@ class CodeStylesTest extends TestCase
     {
         CodeStyle::factory()->count(3)->create();
         
-        $response = $this->getJson('api/get-code-styles');
+        $response = $this->getJson(route('code-style.index'));
 
         $response->assertStatus(200);
     }

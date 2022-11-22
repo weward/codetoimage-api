@@ -11,6 +11,11 @@ class CodeService
         
     }
 
+    public function getCodes()
+    {
+        return Code::all();
+    }
+
     public function save($request)
     {
         try {
@@ -29,4 +34,5 @@ class CodeService
 
         return false;
     }
+
 }
