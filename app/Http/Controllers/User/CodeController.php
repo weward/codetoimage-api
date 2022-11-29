@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CodeStoreRequest;
+use App\Http\Resources\CodeCollection;
+use App\Http\Resources\CodeResource;
 use App\Models\Code;
 use App\Services\User\CodeService;
 use Illuminate\Http\Request;
@@ -21,7 +23,7 @@ class CodeController extends Controller
     {
         $res = $this->service->getCodes();
 
-        return response()->jsonApi($res, 200);
+        return response()->jsonApi(new CodeCollection($res), 200);
     }
 
     public function store(CodeStoreRequest $request)
@@ -33,7 +35,7 @@ class CodeController extends Controller
 
     public function view(Request $request, Code $code)
     {
-        return response()->jsonApi($code, "Entity not found!", 404);
+        return response()->jsonApi(new CodeResource($code), "Entity not found!", 404);
     }
 
 }

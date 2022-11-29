@@ -50,19 +50,22 @@ class CodesTest extends TestCase
      */
     public function getAllCodesSuccessful()
     {
-        $codes = Code::factory()->count(3)->create();
+        Code::factory()->count(3)->create();
 
         $response = $this->get(route('code.index'));
 
-        $response->assertJsonCount(3);
+        $response->assertJson(fn (AssertableJson $json) => $json->has('data', 3));
     }
 
     /**
+     * Check if list is returning the 
+     * proper response key (default = 'data')
+     * 
      * @test
      */
-    public function getAllCodesFormattedProperly()
+    public function getAllCodesHasProperResponseKey()
     {
-        $codes = Code::factory()->count(3)->create();
+        Code::factory()->count(3)->create();
 
         $response = $this->get(route('code.index'));
 
@@ -83,6 +86,21 @@ class CodesTest extends TestCase
         $response->assertJsonFragment([
             'id' => 1,
         ]);
+    }
+
+    /**
+     * Check if Specific Entity record is returning the 
+     * proper response key (default = 'data')
+     * 
+     * @test
+     */
+    public function getSpecificCodeRecordHasProperResponseKey()
+    {
+        Code::factory()->count(1)->create();
+
+        $response = $this->get(route('code.view', ['code' => 1]));
+
+        $response->assertJson(fn (AssertableJson $json) => $json->has('data'));
     }
 
 

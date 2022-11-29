@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CodeStyleResource extends JsonResource
+class CodeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,14 +16,13 @@ class CodeStyleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            $this->mergeWhen($request->route()->getName() != 'code-style.index', [
-                'active' => $this->active,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
-            ]),
+            'style_id' => $this->style_id,
+            'user_id' => $this->user_id, 
+            'langauage_id' => $this->language_id,
+            'title' => $this->title,
+            'code' => $this->code,
+            'created_at' => $this->created_at, 
+            'updated_at' => $this->updated_at, 
         ];
-
     }
-
 }
