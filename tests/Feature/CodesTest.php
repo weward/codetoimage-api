@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Code;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class CodesTest extends TestCase
@@ -56,6 +57,18 @@ class CodesTest extends TestCase
         $response->assertJsonCount(3);
     }
 
+    /**
+     * @test
+     */
+    public function getAllCodesFormattedProperly()
+    {
+        $codes = Code::factory()->count(3)->create();
+
+        $response = $this->get(route('code.index'));
+
+        $response->assertJson(fn (AssertableJson $json) => $json->has('data'));
+    }
+    
     /**
      * Get Specific Entity record
      * 

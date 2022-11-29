@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Http\Resources\CodeStyleCollection;
 use App\Models\CodeStyle;
 
 class CodeStyleService
@@ -14,7 +15,6 @@ class CodeStyleService
     public function getCodeStyles()
     {
         $styles = CodeStyle::select('id', 'name')->active()->get();
-        $styles = ($styles->count()) ? $styles->toArray() : [];
 
         return $styles;
     }

@@ -21,7 +21,7 @@ class CodeController extends Controller
     {
         $res = $this->service->getCodes();
 
-        return response()->jsonApi($res);
+        return response()->jsonApi($res, 200);
     }
 
     public function store(CodeStoreRequest $request)

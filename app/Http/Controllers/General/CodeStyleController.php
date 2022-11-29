@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CodeStyleCollection;
 use App\Models\CodeStyle;
 use App\Services\GeneralService;
 use App\Services\User\CodeStyleService;
@@ -19,9 +20,9 @@ class CodeStyleController extends Controller
 
     public function index()
     {
-        $styles = $this->service->getCodeStyles();
+        $data = $this->service->getCodeStyles();
         
-        return response()->jsonApi($styles);
+        return response()->jsonApi(new CodeStyleCollection($data), 200);
     }
 
     
