@@ -23,7 +23,7 @@ class CodeStylesTest extends TestCase
         
         $response = $this->getJson(route('code-style.index'));
 
-        $response->assertStatus(200);
+        $response->assertJson(fn (AssertableJson $json) => $json->has('data', 3));
     }
 
     /**
