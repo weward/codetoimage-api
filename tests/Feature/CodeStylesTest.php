@@ -21,6 +21,8 @@ class CodeStylesTest extends TestCase
     {
         CodeStyle::factory()->count(3)->create();
         
+        $this->assertDatabaseCount('code_styles', 3);
+
         $response = $this->getJson(route('code-style.index'));
 
         $response->assertJson(fn (AssertableJson $json) => $json->has('data', 3));
@@ -32,6 +34,8 @@ class CodeStylesTest extends TestCase
     public function getCodeStylesFormattedProperly()
     {
         CodeStyle::factory()->count(3)->create();
+
+        $this->assertDatabaseCount('code_styles', 3);
 
         $response = $this->getJson(route('code-style.index'));
 

@@ -52,7 +52,7 @@ class CodesTest extends TestCase
     {
         Code::factory()->count(3)->create();
 
-        $response = $this->get(route('code.index'));
+        $response = $this->getJson(route('code.index'));
 
         $response->assertJson(fn (AssertableJson $json) => $json->has('data', 3));
     }
@@ -67,7 +67,7 @@ class CodesTest extends TestCase
     {
         Code::factory()->count(3)->create();
 
-        $response = $this->get(route('code.index'));
+        $response = $this->getJson(route('code.index'));
 
         $response->assertJson(fn (AssertableJson $json) => $json->has('data'));
     }
@@ -79,12 +79,12 @@ class CodesTest extends TestCase
      */
     public function getSpecificCodeRecordSuccessful()
     {
-        Code::factory()->count(1)->create();
+        $code = Code::factory()->create();
 
-        $response = $this->get(route('code.view', ['code' => 1]));
+        $response = $this->getJson(route('code.view', ['code' => $code->id]));
 
         $response->assertJsonFragment([
-            'id' => 1,
+            'id' => $code->id,
         ]);
     }
 
@@ -96,9 +96,9 @@ class CodesTest extends TestCase
      */
     public function getSpecificCodeRecordHasProperResponseKey()
     {
-        Code::factory()->count(1)->create();
+        $code = Code::factory()->create();
 
-        $response = $this->get(route('code.view', ['code' => 1]));
+        $response = $this->getJson(route('code.view', ['code' => $code->id]));
 
         $response->assertJson(fn (AssertableJson $json) => $json->has('data'));
     }

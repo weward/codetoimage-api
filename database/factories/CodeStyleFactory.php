@@ -20,7 +20,7 @@ class CodeStyleFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->randStyle(),
+            'name' => fake()->name(),
             'active' => 1,
         ];
     }
@@ -35,27 +35,4 @@ class CodeStyleFactory extends Factory
         ]);
     }
 
-    protected function randStyle()
-    {
-        $styles = [
-            'androidstudio',
-            'atom-one-dark',
-            'atom-one-light',
-            'brogrammer',
-            'dracula',
-            'eighties',
-            'espresso',
-            'github',
-            'material-darker',
-            'material-lighter',
-            'material-palenight',
-            'material',
-            'monokai',
-            'onedark',
-            'stackoverflow-dark',
-            'stackoverflow-light',
-        ];
-
-        return $styles[rand(0, (count($styles) - 1))];
-    }
 }

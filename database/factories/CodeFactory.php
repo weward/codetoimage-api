@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\CodeStyle;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,10 +24,10 @@ class CodeFactory extends Factory
         $dateTime = "{$date} {$time}";
 
         return [
-            'user_id' => 1,
+            'user_id' => User::factory(),
             'code' => fake()->randomHtml(2, 3),
             'title' => fake()->domainWord(),
-            'style_id' => rand(252, 326),
+            'style_id' => CodeStyle::factory(),
             'created_at' => $dateTime,
             'updated_at' => $dateTime,
         ];
