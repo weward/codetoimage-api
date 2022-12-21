@@ -25,5 +25,6 @@ Route::namespace('User')->group(function() {
     Route::get('code', [CodeController::class, 'index'])->name('code.index')->middleware('can:viewAny,App\Models\Code');
     Route::post('code', [CodeController::class, 'store'])->name('code.store');
     Route::get('code/{code}', [CodeController::class, 'view'])->name('code.view')->middleware('can:view,code');
+    Route::delete('code/{code}', [CodeController::class, 'destroy'])->name('code.delete')->middleware('can:delete,code');
 });
  

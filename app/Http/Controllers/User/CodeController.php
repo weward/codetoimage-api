@@ -38,4 +38,11 @@ class CodeController extends Controller
         return response()->jsonApi(new CodeResource($code), "Entity not found!", 404);
     }
 
+    public function destroy(Request $request, Code $code)
+    {
+        $res = $this->service->destroy($code->id);
+
+        return response()->jsonApi($res, "Failed to delete!");
+    }
+
 }

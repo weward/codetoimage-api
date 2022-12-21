@@ -25,7 +25,7 @@ class CodesTest extends TestCase
             'style_id' => 261
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 
     /**
@@ -103,6 +103,22 @@ class CodesTest extends TestCase
         $response->assertJson(fn (AssertableJson $json) => $json->has('data'));
     }
 
+    /**
+     * Deleted Code Successfully
+     * 
+     * @test
+     */
+    public function deletedCodeSuccessfully()
+    {
+        $code = Code::factory()->create();
 
+        $this->assertDatabaseHas('codes', ['id' => $code->id]);
+
+        $response = $this->deleteJson(route('code.delete', ['code' => $code->id]));
+
+        $this->assertDatabaseMissing('codes', ['id' => $code->id]);
+
+        $this->assertTrue($response->original);
+    }
 
 }

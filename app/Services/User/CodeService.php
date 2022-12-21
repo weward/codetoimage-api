@@ -35,4 +35,10 @@ class CodeService
         return false;
     }
 
+    public function destroy($id)
+    {
+        $code = Code::where('id', $id)->first();
+        return $code->delete();
+    }
+
 }

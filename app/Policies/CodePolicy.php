@@ -75,9 +75,11 @@ class CodePolicy
      * @param  \App\Models\Code  $code
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Code $code)
+    public function delete(?User $user, Code $code)
     {
-        //
+        return !$user || optional($user)->id == $code->user_id
+            ? Response::allow()
+            : Response::denyWithStatus(403);
     }
 
     /**
