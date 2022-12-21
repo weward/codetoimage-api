@@ -13,7 +13,7 @@ class CodeService
 
     public function getCodes()
     {
-        return Code::all();
+        return Code::orderBy('updated_at', 'desc')->get();
     }
 
     public function save($request)

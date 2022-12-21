@@ -30,7 +30,7 @@ class CodeController extends Controller
     {
         $res = $this->service->save($request);
 
-        return response()->jsonApi($res, "Saving Failed!");
+        return response()->jsonApi(new CodeResource($res), "Saving Failed!");
     }
 
     public function view(Request $request, Code $code)

@@ -26,11 +26,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Response::macro('jsonApi', function($data = null, $errMsg = 'Failed!', $httpStatus = 500) {
-            return ($data instanceof JsonResource)
-                ? $data
-                : response()->json($data, 200);
-
-            return response()->json($errMsg, $httpStatus);
+            if ($data && $data instanceof JsonResource) {
+                return $data;
+            }
+                
+            return ($data) 
+                ? response()->json($data, 200)
+                : response()->json($errMsg, $httpStatus);
         });
     }
 }
